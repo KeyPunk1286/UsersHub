@@ -14,7 +14,10 @@
 
 <script setup lang="ts">
 import Button from 'primevue/button'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const goPages = () => {
-  console.log('goPages')
+  router.push('/login')
 }
 </script>
