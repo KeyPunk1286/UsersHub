@@ -14,6 +14,7 @@ export function useLoginValidate() {
     errorsLoginData.email = ''
     errorsLoginData.password = ''
   }
+
   const isEmailValid = (): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const email = loginData.email.trim()
