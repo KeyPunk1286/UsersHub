@@ -12,6 +12,11 @@ const router = createRouter({
       component: HomePage,
     },
     {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import('@/pages/ProfilePage.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: NotFoundPage,

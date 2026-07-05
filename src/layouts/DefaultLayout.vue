@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <header class="layout-header">
-      <h1>My App</h1>
+      <AppHeader />
     </header>
     <main class="layout-main">
       <slot />
@@ -11,6 +11,10 @@
     </footer>
   </div>
 </template>
+
+<script setup lang="ts">
+import AppHeader from '@/components/shared/AppHeader.vue'
+</script>
 
 <style scoped>
 .layout {
