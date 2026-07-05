@@ -1,7 +1,7 @@
 <template>
   <form novalidate @submit.prevent="handleSubmit">
     <div>
-      <InputText v-model="loginData.email" placeholder="Email" />
+      <InputText v-model="loginData.email" type="email" placeholder="Email" />
       <Message v-if="errorsLoginData.email" severity="error" size="small">{{
         errorsLoginData.email
       }}</Message>

@@ -22,6 +22,11 @@ const router = createRouter({
       component: () => import('@/pages/LoginPage.vue'),
     },
     {
+      path: '/registration',
+      name: 'Registration',
+      component: () => import('@/pages/RegistrationPage.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: NotFoundPage,
