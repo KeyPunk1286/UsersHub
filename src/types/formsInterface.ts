@@ -17,3 +17,17 @@ export interface IRegistrationErrors {
   password: string[]
   details: string[]
 }
+
+export interface IEditForm {
+  email: string
+  firstName: string
+  lastName: string
+  details: string
+}
+
+export interface IEditErrors {
+  email: string[]
+  firstName: string[]
+  lastName: string[]
+  details: string[]
+}
