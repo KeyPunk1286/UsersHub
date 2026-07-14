@@ -6,17 +6,34 @@ import Aura from '@primeuix/themes/aura'
 import App from './App.vue'
 import router from './router'
 
+import { useAuthStore } from '@/stores/Auth'
+import { onUnauthorized } from '@/events/auth.events';
+
+
 import '@/assets/styles/main.css'
 import 'primeicons/primeicons.css'
+import ToastService from 'primevue/toastservice'
 
 const app = createApp(App)
+const pinia = createPinia()
 
-app.use(createPinia())
+
+app.use(pinia)
+const authStore = useAuthStore(pinia)
+await authStore.restoreSession()
+
+onUnauthorized(() => {
+  authStore.clearSession()
+  router.push({
+    name: 'Login'
+  })
+})
+
 app.use(router)
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
   },
 })
-
+app.use(ToastService)
 app.mount('#app')

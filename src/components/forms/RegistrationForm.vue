@@ -1,53 +1,48 @@
 <template>
   <form novalidate @submit.prevent="handleSubmit">
     <div>
-      <InputText v-model="registrationData.email" type="email" placeholder="Email" />
+      <InputText v-model="form.values.email" type="email" placeholder="Email" />
       <Message
-        v-for="(err, index) in registrationErrors.email"
-        :key="index"
+        v-if="form.errors.email"
         severity="error"
         size="small"
-        >{{ err }}</Message
+        >{{ form.errors.email }}</Message
       >
     </div>
     <div>
-      <InputText v-model="registrationData.firstName" type="text" placeholder="First Name" />
+      <InputText v-model="form.values.firstName" type="text" placeholder="First Name" />
       <Message
-        v-for="(err, index) in registrationErrors.firstName"
-        :key="index"
+        v-if="form.errors.firstName"
         severity="error"
         size="small"
-        >{{ err }}</Message
+        >{{ form.errors.firstName }}</Message
       >
     </div>
     <div>
-      <InputText v-model="registrationData.lastName" type="text" placeholder="Last Name" />
+      <InputText v-model="form.values.lastName" type="text" placeholder="Last Name" />
       <Message
-        v-for="(err, index) in registrationErrors.lastName"
-        :key="index"
+        v-if="form.errors.lastName"
         severity="error"
         size="small"
-        >{{ err }}</Message
+        >{{ form.errors.lastName }}</Message
       >
     </div>
     <div>
-      <Password v-model="registrationData.password" placeholder="Password" />
+      <Password v-model="form.values.password" placeholder="Password" />
       <Message
-        v-for="(err, index) in registrationErrors.password"
-        :key="index"
+        v-if="form.errors.password"
         severity="error"
         size="small"
-        >{{ err }}</Message
+        >{{ form.errors.password }}</Message
       >
     </div>
     <div>
-      <Textarea v-model="registrationData.details" placeholder="Details" />
+      <Textarea v-model="form.values.details" placeholder="Details" />
       <Message
-        v-for="(err, index) in registrationErrors.details"
-        :key="index"
+        v-if="form.errors.details"
         severity="error"
         size="small"
-        >{{ err }}</Message
+        >{{ form.errors.details }}</Message
       >
     </div>
     <div>
@@ -63,5 +58,23 @@ import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Textarea from 'primevue/textarea'
 import { useRegistrationValidation } from '@/composables/useRegistrationValidation'
-const { registrationData, registrationErrors, handleSubmit } = useRegistrationValidation()
+import type { IUseFormReturn, IRegistrationForm } from "@/types/formsInterface";
+
+
+const { form } = defineProps<{
+  form: IUseFormReturn<IRegistrationForm>
+}>()
+
+const emit = defineEmits<{
+  (event: 'submit'): void
+}>()
+  
+const { doValidate } = useRegistrationValidation(form)
+
+const handleSubmit = (): void => {
+  if (doValidate()) {
+    emit('submit')
+  }
+}
+
 </script>

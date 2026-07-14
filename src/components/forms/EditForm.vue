@@ -1,45 +1,42 @@
 <template>
   <div>
-    <h2>Edit User</h2>
+    
     <form @submit.prevent="handleSubmit">
+      <p>{{ form.values.email }}</p>
       <div>
-        <InputText v-model="editData.email" type="email" placeholder="Email" />
+        <InputText v-model="form.values.email" type="email" placeholder="Email" />
         <Message
-          v-for="(err, index) in editErrors.email"
-          :key="index"
+          v-if="form.errors.email"
           severity="error"
           size="small"
-          >{{ err }}</Message
+          >{{ form.errors.email }}</Message
         >
       </div>
       <div>
-        <InputText v-model="editData.firstName" type="text" placeholder="First Name" />
+        <InputText v-model="form.values.firstName" type="text" placeholder="First Name" />
         <Message
-          v-for="(err, index) in editErrors.firstName"
-          :key="index"
+          v-if="form.errors.firstName"
           severity="error"
           size="small"
-          >{{ err }}</Message
+          >{{ form.errors.firstName }}</Message
         >
       </div>
       <div>
-        <InputText v-model="editData.lastName" type="text" placeholder="Last Name" />
+        <InputText v-model="form.values.lastName" type="text" placeholder="Last Name" />
         <Message
-          v-for="(err, index) in editErrors.lastName"
-          :key="index"
+          v-if="form.errors.lastName"
           severity="error"
           size="small"
-          >{{ err }}</Message
+          >{{ form.errors.lastName }}</Message
         >
       </div>
       <div>
-        <Textarea v-model="editData.details" placeholder="Details" />
+        <Textarea v-model="form.values.details" placeholder="Details" />
         <Message
-          v-for="(err, index) in editErrors.details"
-          :key="index"
+          v-if="form.errors.details"
           severity="error"
           size="small"
-          >{{ err }}</Message
+          >{{ form.errors.details }}</Message
         >
       </div>
       <div>
@@ -55,6 +52,21 @@ import Message from 'primevue/message'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
 import { useEditData } from '@/composables/useEditData'
+import type { IUseFormReturn, IEditForm } from "@/types/formsInterface";
 
-const { editData, editErrors, handleSubmit } = useEditData()
+const { form } = defineProps<{
+  form: IUseFormReturn<IEditForm>
+}>()
+
+const emit = defineEmits<{
+  (event: 'submit'): void
+}>()
+
+const { doValidate } = useEditData(form)
+
+const handleSubmit = (): void => {
+  if (doValidate()) {
+    emit('submit')
+  }
+}
 </script>

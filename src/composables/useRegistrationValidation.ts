@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import type { IRegistrationForm, IRegistrationErrors } from '@/types/formsInterface'
+import type { IRegistrationForm, IRegistrationErrors, IUseFormReturn } from '@/types/formsInterface'
 import {
   isEmailValid,
   isFirstNameValid,
@@ -8,43 +8,19 @@ import {
   isDetailsValid,
 } from '@/composables/validateFields'
 
-export function useRegistrationValidation() {
-  const registrationData = reactive<IRegistrationForm>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    password: '',
-    details: '',
-  })
-  const registrationErrors = reactive<IRegistrationErrors>({
-    email: [],
-    firstName: [],
-    lastName: [],
-    password: [],
-    details: [],
-  })
-  const clearErrors = (): void => {
-    registrationErrors.email = []
-    registrationErrors.firstName = []
-    registrationErrors.lastName = []
-    registrationErrors.password = []
-    registrationErrors.details = []
-  }
 
+export function useRegistrationValidation(form: IUseFormReturn<IRegistrationForm>) {
+ 
   const doValidate = (): boolean => {
-    clearErrors()
-    registrationErrors.email = isEmailValid(registrationData.email)
-    registrationErrors.firstName = isFirstNameValid(registrationData.firstName)
-    registrationErrors.lastName = isLastNameValid(registrationData.lastName)
-    registrationErrors.password = isPasswordValid(registrationData.password)
-    registrationErrors.details = isDetailsValid(registrationData.details)
-    return Object.values(registrationErrors).every((errorArray) => errorArray.length === 0)
+    form.clearErrors()
+    form.errors.email = isEmailValid(form.values.email)[0] ?? ''
+    form.errors.firstName = isFirstNameValid(form.values.firstName)[0] ?? ''
+    form.errors.lastName = isLastNameValid(form.values.lastName)[0] ?? ''
+    form.errors.password = isPasswordValid(form.values.password)[0] ?? ''
+    form.errors.details = isDetailsValid(form.values.details)[0] ?? ''
+    return Object.values(form.errors).every(value=>value === '')
   }
-
-  const handleSubmit = (): void => {
-    if (doValidate()) {
-      console.log('Form submitted:', registrationData)
-    }
-  }
-  return { registrationData, registrationErrors, handleSubmit }
+  
+  return {doValidate}
 }
+ 

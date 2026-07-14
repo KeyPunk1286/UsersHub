@@ -1,18 +1,11 @@
 export function useLocalStorage() {
-  const setItem = <T>(key: string, value: T): void => {
-    localStorage.setItem(key, JSON.stringify(value))
+  const setItem = (key: string, value: string): void => {
+    localStorage.setItem(key, value)
   }
 
-  const getItem = <T>(key: string): T | null => {
-    const item = localStorage.getItem(key)
-    if (!item) {
-      return null
-    }
-    try {
-      return JSON.parse(item) as T
-    } catch {
-      return null
-    }
+  const getItem = (key: string): string | null => {
+    return localStorage.getItem(key)
+    
   }
 
   const removeItem = (key: string): void => {
