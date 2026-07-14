@@ -1,23 +1,20 @@
 <template>
-  <div>
+  <div class="flex justify-between items-center bg-(--color-secondary)">
     <RouterLink to="/">Users<span>Hub</span></RouterLink>
-    <ui>
+    <ul class="flex gap-4">
       <li><RouterLink to="/" exact-active-class="text-black">Home</RouterLink></li>
       <li><RouterLink to="/profile">Profile</RouterLink></li>
-    </ui>
+    </ul>
     <div>
-      <Button label="Login" icon="pi pi-sign-in" @click="goPages" />
-      <Button icon="pi pi-moon" />
+      <Button :icon="authIcon" :label="labelText"  @click="authAction" />
+      <Button :icon="darkModeIcon" @click="toggleDarkMode"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Button from 'primevue/button'
-import { useRouter } from 'vue-router'
+import { useHeaderLogic } from "@/composables/useHeaderLogic";
 
-const router = useRouter()
-const goPages = () => {
-  router.push('/login')
-}
+const { authAction, authIcon, toggleDarkMode, labelText, darkModeIcon} = useHeaderLogic()
 </script>

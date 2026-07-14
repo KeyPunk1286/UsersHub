@@ -1,1 +1,23 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-secondary: "Open Sans", sans-serif;
+   --color-primary: #223125;
+  --color-secondary: #729969;
+  --color-accent: #A1C0C2;
+  --color-border: #E6E7EB;
+  --color-surface: #F6F6F6;
+}
+
+@utility font-secondary {
+  font-family: var(--font-secondary);
+}
+
+body{
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+}

@@ -1,5 +1,4 @@
-import { reactive } from 'vue'
-import type { IEditForm, IEditErrors } from '@/types/formsInterface'
+import type { IEditForm, IUseFormReturn } from '@/types/formsInterface'
 import {
   isEmailValid,
   isFirstNameValid,
@@ -7,39 +6,15 @@ import {
   isDetailsValid,
 } from '@/composables/validateFields'
 
-export function useEditData() {
-  const editData = reactive<IEditForm>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    details: '',
-  })
-  const editErrors = reactive<IEditErrors>({
-    email: [],
-    firstName: [],
-    lastName: [],
-    details: [],
-  })
-  const clearErrors = (): void => {
-    editErrors.email = []
-    editErrors.firstName = []
-    editErrors.lastName = []
-    editErrors.details = []
-  }
+export function useEditData(form: IUseFormReturn<IEditForm>) {
 
   const doValidate = (): boolean => {
-    clearErrors()
-    editErrors.email = isEmailValid(editData.email)
-    editErrors.firstName = isFirstNameValid(editData.firstName)
-    editErrors.lastName = isLastNameValid(editData.lastName)
-    editErrors.details = isDetailsValid(editData.details)
-    return Object.values(editErrors).every((errorArray) => errorArray.length === 0)
+    form.clearErrors()
+    form.errors.email = isEmailValid(form.values.email)[0] ?? ''
+    form.errors.firstName = isFirstNameValid(form.values.firstName)[0] ?? ''
+    form.errors.lastName = isLastNameValid(form.values.lastName)[0] ?? ''
+    form.errors.details = isDetailsValid(form.values.details)[0] ?? ''
+    return Object.values(form.errors).every(value => value === '')
   }
-
-  const handleSubmit = (): void => {
-    if (doValidate()) {
-      console.log('Form submitted:', editData)
-    }
-  }
-  return { editData, editErrors, handleSubmit }
+  return { doValidate }
 }
