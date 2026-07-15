@@ -1,11 +1,8 @@
-export function createObjectWithValue<T extends object, TValue>(
-  source: T,
-  value: TValue
-) {
+export function createObjectWithValue<T extends object, TValue>(source: T, value: TValue) {
   const result = {} as { [K in keyof T]: TValue }
   const keys = Object.keys(source) as (keyof T)[]
   for (const key of keys) {
-      result[key] = value
+    result[key] = value
   }
   return result
 }

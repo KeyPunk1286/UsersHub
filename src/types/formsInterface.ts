@@ -1,4 +1,4 @@
-import type { Ref } from "vue";
+import type { Ref } from 'vue'
 
 export interface ILoginForm {
   email: string
@@ -35,9 +35,8 @@ export interface IEditErrors {
 }
 
 export interface RefreshTokenDto {
-    refreshToken: string;
+  refreshToken: string
 }
-
 
 //====================================
 
@@ -59,7 +58,5 @@ export interface IUseFormReturn<T> {
   submitted: Ref<boolean>
   reset(): void
   clearErrors(): void
-  submit<TResult>(
-    callback: () => Promise<TResult>
-  ): Promise<TResult>
+  submit<TResult>(callback: () => Promise<TResult>): Promise<TResult>
 }

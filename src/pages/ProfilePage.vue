@@ -1,12 +1,15 @@
 <template>
   <DefaultLayout>
-    <div>
-      <h1>Profile</h1>
+    <div class="flex flex-col justify-center items-center gap-3 text-2xl">
+      <div class="flex items-center gap-2 ">
+        <i class="pi pi-user"/>
+        <h1>Profile</h1>
+      </div>
       <p>{{ userInfo?.firstName }}</p>
       <p>{{ userInfo?.lastName }}</p>
       <p>{{ userInfo?.details }}</p>
       <div>
-        <Button icon="i pi pi-user-edit" @click="goToEdit"></button>
+        <Button unstyled pt:root="px-3 py-2 bg-secondary rounded-md cursor-pointer" icon="i pi pi-user-edit" @click="goToEdit"></button>
       </div>
     </div>
   </DefaultLayout>

@@ -1,10 +1,10 @@
-type UnauthorizedHandler = () => void 
+type UnauthorizedHandler = () => void
 
 let unauthorizedHandler: UnauthorizedHandler | null = null
 
 let isUnauthorizedHandled = false
 
-export function onUnauthorized(handler: UnauthorizedHandler): void{
+export function onUnauthorized(handler: UnauthorizedHandler): void {
   unauthorizedHandler = handler
 }
 
@@ -15,5 +15,5 @@ export function emitUnauthorized(): void {
 }
 
 export function resetUnauthorized() {
-    isUnauthorizedHandled = false
+  isUnauthorizedHandled = false
 }

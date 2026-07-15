@@ -1,8 +1,7 @@
-import { reactive, ref } from "vue";
-import { createObjectWithValue } from "@/helper/object";
+import { reactive, ref } from 'vue'
+import { createObjectWithValue } from '@/helper/object'
 
 export function useForm<T extends object>(initialValues: T) {
-  
   const initialState = { ...initialValues }
   const values = reactive({ ...initialValues })
   const initialErrors = createObjectWithValue(initialValues, '')
@@ -12,9 +11,9 @@ export function useForm<T extends object>(initialValues: T) {
   const submitted = ref(false)
 
   function reset() {
-    Object.assign(values,initialState)
+    Object.assign(values, initialState)
   }
-  
+
   function clearErrors() {
     Object.assign(errors, initialErrors)
     serverError.value = null
@@ -30,7 +29,7 @@ export function useForm<T extends object>(initialValues: T) {
       loading.value = false
     }
   }
-  
+
   return {
     values,
     errors,
@@ -41,5 +40,4 @@ export function useForm<T extends object>(initialValues: T) {
     clearErrors,
     submit,
   }
-  
 }

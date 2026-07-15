@@ -1,5 +1,5 @@
 <template>
-  <form novalidate @submit.prevent="handleSubmit">
+  <form novalidate @submit.prevent="handleSubmit" class="flex flex-col gap-6">
     <div>
       <InputText v-model="form.values.email" type="email" placeholder="Email" />
       <Message v-if="form.errors.email" severity="error" size="small">{{
@@ -13,7 +13,12 @@
       }}</Message>
     </div>
     <div>
-      <Button type="submit" label="Login" />
+      <Button
+        unstyled
+        pt:root="py-2 px-3 bg-secondary rounded-md w-full cursor-pointer"
+        type="submit"
+        label="Login"
+      />
     </div>
     <div v-if="form.serverError.value">
       <Message severity="error" size="small">{{ form.serverError.value }}</Message>
@@ -28,10 +33,9 @@ import Password from 'primevue/password'
 import Button from 'primevue/button'
 import { useLoginValidate } from '@/composables/useLoginValidate'
 import type { ILoginForm } from '@/types/formsInterface'
-import { useForm } from "@/composables/useForm";
+import { useForm } from '@/composables/useForm'
 
-
-const {form} = defineProps<{
+const { form } = defineProps<{
   form: ReturnType<typeof useForm<ILoginForm>>
 }>()
 
@@ -41,9 +45,9 @@ const emit = defineEmits<{
 
 const { doValidate } = useLoginValidate(form)
 
- const handleSubmit = (): void => {
-   if (doValidate()) {
-      emit('submit')
-    }
+const handleSubmit = (): void => {
+  if (doValidate()) {
+    emit('submit')
   }
+}
 </script>

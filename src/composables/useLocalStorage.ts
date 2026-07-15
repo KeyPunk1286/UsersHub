@@ -5,7 +5,6 @@ export function useLocalStorage() {
 
   const getItem = (key: string): string | null => {
     return localStorage.getItem(key)
-    
   }
 
   const removeItem = (key: string): void => {

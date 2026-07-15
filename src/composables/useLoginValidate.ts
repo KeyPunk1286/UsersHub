@@ -1,8 +1,6 @@
-import { reactive } from 'vue'
 import type { ILoginForm, IUseFormReturn } from '@/types/formsInterface'
 
 export function useLoginValidate(form: IUseFormReturn<ILoginForm>) {
-  
   const isEmailValid = (): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const email = form.values.email.trim()
@@ -31,6 +29,5 @@ export function useLoginValidate(form: IUseFormReturn<ILoginForm>) {
     return isEmailValidResult && isPasswordValidResult
   }
 
- 
   return { doValidate }
 }

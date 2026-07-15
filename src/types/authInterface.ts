@@ -7,13 +7,13 @@ export interface IUserData {
 }
 
 export interface ITokenPair {
-    accessToken: string
-    refreshToken: string
+  accessToken: string
+  refreshToken: string
 }
 
-export interface ILoginResponse { 
+export interface ILoginResponse {
   userData: IUserData
-   tokens: ITokenPair
+  tokens: ITokenPair
 }
 
 export interface IValidationError {

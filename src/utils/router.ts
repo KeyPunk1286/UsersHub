@@ -2,7 +2,7 @@ import type { LocationQueryValue } from 'vue-router'
 
 export function getRedirectPath(
   redirect: LocationQueryValue | LocationQueryValue[] | undefined,
-  fallback: string
+  fallback: string,
 ): string {
   if (typeof redirect === 'string') {
     return redirect
