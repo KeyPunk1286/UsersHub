@@ -1,8 +1,7 @@
 <template>
   <DefaultLayout>
-    <div>
+    <div class="flex flex-col justify-center items-center gap-2.5">
       <h1>Registration</h1>
-      <p>This is the registration page.</p>
       <RegistrationForm :form="form" @submit="register" />
     </div>
   </DefaultLayout>

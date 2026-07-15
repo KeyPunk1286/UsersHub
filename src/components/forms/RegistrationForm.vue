@@ -1,5 +1,5 @@
 <template>
-  <form novalidate @submit.prevent="handleSubmit">
+  <form novalidate @submit.prevent="handleSubmit" class="flex flex-col  gap-6">
     <div>
       <InputText v-model="form.values.email" type="email" placeholder="Email" />
       <Message v-if="form.errors.email" severity="error" size="small">{{

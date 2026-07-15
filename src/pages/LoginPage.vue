@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <div class="flex flex-col justify-center items-center">
+    <div class="flex flex-col justify-center items-center gap-2.5">
       <h1>Login</h1>
       <LoginForm :form="form" @submit="login" />
     </div>
@@ -14,9 +14,7 @@ import { useRoute, useRouter } from 'vue-router'
 import type { ILoginForm } from '@/types/formsInterface'
 import { useAuthStore } from '@/stores/Auth'
 import { getRedirectPath } from '@/utils/router'
-import { ApiError } from '@/errors/ApiError'
 import { useForm } from '@/composables/useForm'
-import { mapValidationErrors } from '@/helper/mapValidationErrors'
 import { useErrorHandler } from '@/composables/useErrorHandler'
 
 const router = useRouter()
