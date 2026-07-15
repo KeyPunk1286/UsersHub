@@ -67,7 +67,6 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
 import { useHeaderLogic } from '@/composables/useHeaderLogic'
-import { isDetailsValid } from '@/composables/validateFields'
 import { useTheme } from '@/composables/useTheme'
 
 const { isMenuOpen, authAction, authIcon, labelText, toggleMenu, menuIcon, navigation } =

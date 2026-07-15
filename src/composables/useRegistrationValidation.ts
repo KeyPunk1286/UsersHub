@@ -1,4 +1,4 @@
-import type { IRegistrationForm,  IUseFormReturn } from '@/types/formsInterface'
+import type { IRegistrationForm, IUseFormReturn } from '@/types/formsInterface'
 import {
   isEmailValid,
   isFirstNameValid,
