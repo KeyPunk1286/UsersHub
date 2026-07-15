@@ -17,32 +17,32 @@ const router = createRouter({
       name: 'Profile',
       component: () => import('@/pages/ProfilePage.vue'),
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
       path: '/profile/edit',
       name: 'Edit',
       component: () => import('@/pages/EditProfilePage.vue'),
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
       path: '/login',
       name: 'Login',
       component: () => import('@/pages/LoginPage.vue'),
       meta: {
-        guestOnly: true
-      }
+        guestOnly: true,
+      },
     },
     {
       path: '/registration',
       name: 'Registration',
       component: () => import('@/pages/RegistrationPage.vue'),
       meta: {
-        guestOnly: true
-      }
+        guestOnly: true,
+      },
     },
     {
       path: '/:pathMatch(.*)*',
@@ -60,13 +60,13 @@ router.beforeEach((to) => {
     return {
       name: 'Login',
       query: {
-        redirect: to.fullPath
-      }
+        redirect: to.fullPath,
+      },
     }
   }
   if (to.meta.guestOnly && authStore.isAuthenticated) {
     return {
-      name: 'Profile'
+      name: 'Profile',
     }
   }
 })

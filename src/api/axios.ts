@@ -1,17 +1,16 @@
-import axios from "axios";
-import { ApiError } from "@/errors/ApiError";
+import axios from 'axios'
+import { ApiError } from '@/errors/ApiError'
 import { emitUnauthorized } from '@/events/auth.events'
-import type { ILoginResponse } from "@/types/authInterface";
-import { tokenService } from "@/services/token.service";
-
+import type { ILoginResponse } from '@/types/authInterface'
+import { tokenService } from '@/services/token.service'
 
 export const refreshApi = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: 'http://localhost:5000',
   timeout: 10000,
 })
 
 export const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: 'http://localhost:5000',
   timeout: 10000,
 })
 
@@ -57,50 +56,39 @@ api.interceptors.response.use(
       throw new ApiError(
         error.response?.status ?? 500,
         error.response?.data?.message ?? 'Unexpected server error',
-        error.response?.data?.errors
+        error.response?.data?.errors,
       )
     }
 
     if (originalRequest.url === '/users/login') {
-      throw new ApiError(
-        401,
-        error.response?.data?.message ?? 'Invalid email or password'
-      )
+      throw new ApiError(401, error.response?.data?.message ?? 'Invalid email or password')
     }
-    
+
     if (originalRequest._retry) {
       emitUnauthorized()
-      throw new ApiError(
-        401,
-        'Unauthorized'
-      )
+      throw new ApiError(401, 'Unauthorized')
     }
     originalRequest._retry = true
     const refreshToken = tokenService.getRefreshToken()
     if (!refreshToken) {
       emitUnauthorized()
-      throw new ApiError(
-        401,
-        'Refresh token not found'
-      )
+      throw new ApiError(401, 'Refresh token not found')
     }
     if (isRefreshing) {
-    return new Promise<string>((resolve, reject) => {
-      failedQueue.push({ resolve, reject })
-    }).then((token) => {
-      originalRequest.headers.Authorization = `Bearer ${token}`
+      return new Promise<string>((resolve, reject) => {
+        failedQueue.push({ resolve, reject })
+      }).then((token) => {
+        originalRequest.headers.Authorization = `Bearer ${token}`
 
-      return api(originalRequest)
-    })
-  }
+        return api(originalRequest)
+      })
+    }
 
-  isRefreshing = true
+    isRefreshing = true
     try {
-      const response = await refreshApi.post<ILoginResponse>(
-        '/users/refresh',
-        {
-          refreshToken
-        })
+      const response = await refreshApi.post<ILoginResponse>('/users/refresh', {
+        refreshToken,
+      })
       const { tokens } = response.data
       tokenService.saveTokens(tokens)
       processQueue(null, tokens.accessToken)
@@ -118,6 +106,5 @@ api.interceptors.response.use(
     } finally {
       isRefreshing = false
     }
-  }
+  },
 )
-

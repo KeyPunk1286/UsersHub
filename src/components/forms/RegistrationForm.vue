@@ -2,48 +2,33 @@
   <form novalidate @submit.prevent="handleSubmit">
     <div>
       <InputText v-model="form.values.email" type="email" placeholder="Email" />
-      <Message
-        v-if="form.errors.email"
-        severity="error"
-        size="small"
-        >{{ form.errors.email }}</Message
-      >
+      <Message v-if="form.errors.email" severity="error" size="small">{{
+        form.errors.email
+      }}</Message>
     </div>
     <div>
       <InputText v-model="form.values.firstName" type="text" placeholder="First Name" />
-      <Message
-        v-if="form.errors.firstName"
-        severity="error"
-        size="small"
-        >{{ form.errors.firstName }}</Message
-      >
+      <Message v-if="form.errors.firstName" severity="error" size="small">{{
+        form.errors.firstName
+      }}</Message>
     </div>
     <div>
       <InputText v-model="form.values.lastName" type="text" placeholder="Last Name" />
-      <Message
-        v-if="form.errors.lastName"
-        severity="error"
-        size="small"
-        >{{ form.errors.lastName }}</Message
-      >
+      <Message v-if="form.errors.lastName" severity="error" size="small">{{
+        form.errors.lastName
+      }}</Message>
     </div>
     <div>
       <Password v-model="form.values.password" placeholder="Password" />
-      <Message
-        v-if="form.errors.password"
-        severity="error"
-        size="small"
-        >{{ form.errors.password }}</Message
-      >
+      <Message v-if="form.errors.password" severity="error" size="small">{{
+        form.errors.password
+      }}</Message>
     </div>
     <div>
       <Textarea v-model="form.values.details" placeholder="Details" />
-      <Message
-        v-if="form.errors.details"
-        severity="error"
-        size="small"
-        >{{ form.errors.details }}</Message
-      >
+      <Message v-if="form.errors.details" severity="error" size="small">{{
+        form.errors.details
+      }}</Message>
     </div>
     <div>
       <Button type="submit" label="Register" />
@@ -58,8 +43,7 @@ import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Textarea from 'primevue/textarea'
 import { useRegistrationValidation } from '@/composables/useRegistrationValidation'
-import type { IUseFormReturn, IRegistrationForm } from "@/types/formsInterface";
-
+import type { IUseFormReturn, IRegistrationForm } from '@/types/formsInterface'
 
 const { form } = defineProps<{
   form: IUseFormReturn<IRegistrationForm>
@@ -68,7 +52,7 @@ const { form } = defineProps<{
 const emit = defineEmits<{
   (event: 'submit'): void
 }>()
-  
+
 const { doValidate } = useRegistrationValidation(form)
 
 const handleSubmit = (): void => {
@@ -76,5 +60,4 @@ const handleSubmit = (): void => {
     emit('submit')
   }
 }
-
 </script>

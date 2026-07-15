@@ -1,7 +1,7 @@
 import type { ILoginForm, RefreshTokenDto } from '@/types/formsInterface'
 import { api, refreshApi } from './axios'
 import type { ILoginResponse, IUserData } from '@/types/authInterface'
-import type { IRegistrationForm, IEditForm } from "@/types/formsInterface";
+import type { IRegistrationForm, IEditForm } from '@/types/formsInterface'
 
 export const authApi = {
   async login(data: ILoginForm): Promise<ILoginResponse> {
@@ -20,11 +20,11 @@ export const authApi = {
     const response = await api.post<IUserData>('/users/registration', data)
     return response.data
   },
-  async updateProfile(data: IEditForm): Promise<IUserData>{
+  async updateProfile(data: IEditForm): Promise<IUserData> {
     const response = await api.put<IUserData>('/users/update-user', data)
     return response.data
   },
-  async logout(): Promise<void>{
+  async logout(): Promise<void> {
     await api.post('/users/logout')
-  }
+  },
 }

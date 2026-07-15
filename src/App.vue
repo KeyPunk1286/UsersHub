@@ -3,9 +3,10 @@ import Toast from 'primevue/toast'
 </script>
 
 <template>
-  <Toast />
-  <RouterView />
+  <div class="min-h-screen bg-surface text-primary dark:bg-primary">
+    <Toast />
+    <RouterView />
+  </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,5 +1,4 @@
-import { reactive } from 'vue'
-import type { IRegistrationForm, IRegistrationErrors, IUseFormReturn } from '@/types/formsInterface'
+import type { IRegistrationForm,  IUseFormReturn } from '@/types/formsInterface'
 import {
   isEmailValid,
   isFirstNameValid,
@@ -8,9 +7,7 @@ import {
   isDetailsValid,
 } from '@/composables/validateFields'
 
-
 export function useRegistrationValidation(form: IUseFormReturn<IRegistrationForm>) {
- 
   const doValidate = (): boolean => {
     form.clearErrors()
     form.errors.email = isEmailValid(form.values.email)[0] ?? ''
@@ -18,9 +15,8 @@ export function useRegistrationValidation(form: IUseFormReturn<IRegistrationForm
     form.errors.lastName = isLastNameValid(form.values.lastName)[0] ?? ''
     form.errors.password = isPasswordValid(form.values.password)[0] ?? ''
     form.errors.details = isDetailsValid(form.values.details)[0] ?? ''
-    return Object.values(form.errors).every(value=>value === '')
+    return Object.values(form.errors).every((value) => value === '')
   }
-  
-  return {doValidate}
+
+  return { doValidate }
 }
- 
